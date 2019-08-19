@@ -7,3 +7,4 @@ Demo renders 150 random rectangles that are sorted from large to small areas and
 
 Rectangles are rendered using SkiaSharp.
 
+![Alt text](Screenshot.jpg?raw=true)

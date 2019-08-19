@@ -10,34 +10,6 @@ namespace BoxPacker
             boxes = new List<Box>();
         }
 
-        public List<Box> boxes;
-        private Node rootNode;
-
-        public void AddBox(Box box)
-        {
-            box.area = box.width * box.height;
-            boxes.Add(box);
-        }
-
-        public void Pack(float containerWidth, float containerHeight)
-        {
-            boxes = boxes.OrderByDescending(x => x.area).ToList();
-            rootNode = new Node { w = containerWidth, h = containerHeight };
-
-            foreach (var box in boxes)
-            {
-                var node = FindNode(rootNode, box.width, box.height);
-                if (node != null)
-                {
-                    // Split rectangles
-                    box.position = SplitNode(node, box.width, box.height);
-                } else
-                {
-                    box.position = GrowNode(box.width, box.height);
-                }
-            }
-        }
-        
         public class Node
         {
             public Node right;
@@ -57,6 +29,32 @@ namespace BoxPacker
             public Node position;
         }
 
+        public List<Box> boxes;
+        private Node rootNode;
+
+        public void AddBox(Box box)
+        {
+            box.area = box.width * box.height;
+            boxes.Add(box);
+        }
+
+        public void Pack(float containerWidth, float containerHeight)
+        {
+            boxes = boxes.OrderByDescending(x => x.area).ToList();
+            rootNode = new Node { w = containerWidth, h = containerHeight };
+
+            foreach (var box in boxes)
+            {
+                var node = FindNode(rootNode, box.width, box.height);
+                if (node != null)
+                {
+                    box.position = SplitNode(node, box.width, box.height);
+                } else
+                {
+                    box.position = GrowNode(box.width, box.height);
+                }
+            }
+        }
 
         private Node FindNode(Node rootNode, float w, float h)
         {

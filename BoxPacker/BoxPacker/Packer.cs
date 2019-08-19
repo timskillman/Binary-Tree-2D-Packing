@@ -37,6 +37,7 @@ namespace BoxPacker
                 }
             }
         }
+        
         public class Node
         {
             public Node right;
@@ -47,6 +48,7 @@ namespace BoxPacker
             public float h;
             public bool used;
         }
+        
         public class Box
         {
             public float height;
